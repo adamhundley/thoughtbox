@@ -1,0 +1,58 @@
+
+<nav role="navigation" class="navbar navbar-default custom-navbar">
+  <div class="nav-container">
+    <%= link_to "logout", logout_path, method: :delete %>
+  </div>
+</nav>
+<div class="text-center">
+<div class="container">
+  <h3>NEW LINK</h3>
+  <%= form_for(@link) do |f| %>
+    <%= f.label :url, class:"sr-only"  %>
+    <%= f.text_field :url, placeholder: "url", class:"form-control text-input", required:true %><br>
+    <%= f.label :title, class:"sr-only"  %>
+    <%= f.text_field :title, placeholder: "title", class:"form-control text-input", required:true %><br>
+    <label><%= f.check_box :read, class:"form-control text-input" %>Read?</label><br>
+    <%= f.submit "submit link", class:"btn btn-success" %>
+  <% end %>
+</div><br><hr>
+<h1>SEARCH</h1>
+<div class="searchIdea container" id="searchIdea">
+    <form class="form-inline searchIdeaForm">
+      <div class="form-group">
+        <input type="text_field" size="80" id="search" placeholder="Search" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-info btn-md"  value="clear" id="clear">Clear</button>
+      </div>
+    </form>
+  </div><hr>
+<div class="container">
+  <h1>My Links</h1>
+  <table class="table links-table">
+    <th>Title</th>
+    <th>URL</th>
+    <th>Mark as Read?</th>
+    <tbody class="table-striped table-center">
+      <% @links.each do |link| %>
+      <tr>
+        <%= form_for(link) do |f| %>
+          <%= f.label :title, class:"sr-only"  %>
+          <td><%= f.text_field :title, class:"form-control text-input edit", readonly:true, :data => {:id => link.id }%></td>
+          <%= f.label :url, class:"sr-only"  %>
+          <td><%= f.text_field :url, class:"form-control text-input edit", readonly:true, :data => {:id => link.id } %></td>
+
+          <% if link.read %>
+            <td><button class="btn btn-success read" data-id="<%= link.id %>" data-read='false'>mark unread</button></td>
+
+          <% else %>
+            <td><button class="btn btn-danger read" data-id="<%= link.id %>" data-read='true'>mark read</button></td>
+          <% end %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr>
+</div>
