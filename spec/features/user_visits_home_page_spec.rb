@@ -1,23 +1,52 @@
 require 'rails_helper'
 
-RSpec.feature "AuthenticatedUserSecurity", type: :feature do
-  scenario "An authenticated user cannot view another users data" do
-    user1 = User.create(first_name: "John", last_name: "Adams", fullname: "John Adams", email: "email@example.com", password: "password")
-    user2 = User.create(first_name: "Adams", last_name: "Poop", fullname: "Adams Poop", email: "snail@example.com", password: "password")
+RSpec.feature "UserPromtedToLogin", type: :feature do
+  scenario "As an unauthenticated user, when I visit the root of the application, I should be redirected to a page which prompts me to Log In or Sign Up." do
 
     visit "/"
 
-    click_on "login"
+    expect(page).to have_content "Sign In"
+    expect(page).to have_content "Sign Up"
+  end
 
-    fill_in "email", with: user1.email
-    fill_in "password", with: user1.password
+  scenario "As an unauthenticated user, I click Sign Up, and create an account" do
 
-    within "div#login-form" do
-      click_on "login"
-    end
+    visit new_user_path
 
+    expect(current_path).to eq "/users/new"
 
-    expect(page).to have_content(user1.fullname.downcase)
-    expect(page).to_not have_content(user2.fullname.downcase)
+    fill_in "email", with: "adamhundley@gmail.com"
+    fill_in "password", with: "password"
+    fill_in "user_password_confirmation", with: "password"
+
+    click_on "signup"
+
+    expect(page).to have_content "Hey adamhundley@gmail.com, welcome to THOUGHTBOX"
+  end
+
+  scenario "An error occurs if an email is already used" do
+    User.create(email: "adamhundley@gmail.com", password: "password")
+
+    visit new_user_path
+
+    fill_in "email", with: "adamhundley@gmail.com"
+    fill_in "password", with: "password"
+    fill_in "user_password_confirmation", with: "password"
+
+    click_on "signup"
+
+    expect(page).to have_content "Whoops! Email has already been taken"
+  end
+
+  scenario "Passwords must match" do
+    visit new_user_path
+
+    fill_in "email", with: "adamhundley@gmail.com"
+    fill_in "password", with: "password"
+    fill_in "user_password_confirmation", with: "passwordd"
+
+    click_on "signup"
+
+    expect(page).to have_content "Whoops! Password confirmation doesn't match Password, Password confirmation doesn't match"
   end
 end
