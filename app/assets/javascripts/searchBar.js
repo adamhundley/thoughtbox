@@ -1,7 +1,35 @@
 $(document).ready(function(){
 
+  $('.sort').on('click', function(e){
+    var $sort = this;
+    let links = $('.link');
+
+    links.sort(function(a,b){
+      let keyA = $(a).children('.title').children('.title').val()
+      let keyB = $(b).children('.title').children('.title').val()
+
+
+      if($($sort).hasClass('asc')){
+            return (keyA > keyB) ? 1 : 0;
+        } else {
+            return (keyA < keyB) ? 1 : 0;
+        }
+    });
+
+    $.each(links, function(index, row){
+      $('.links-table').append(row);
+    });
+
+    e.preventDefault();
+  });
+
+  $('.sortZ').on('click', function(){
+    let links = $('.link');
+
+  });
+
   $('.filterUnread').on('click', function(){
-    var links = $('.link');
+    let links = $('.link');
 
     $.each(links, function(link) {
       if($(this).children('.read').length > 0){
@@ -11,7 +39,7 @@ $(document).ready(function(){
   })
 
   $('.filterRead').on('click', function(){
-    var links = $('.link');
+    let links = $('.link');
 
     $.each(links, function(link) {
       if($(this).children('.unread').length > 0){
@@ -32,22 +60,22 @@ $(document).ready(function(){
     searchLinks($(this).val());
   });
 
-  var searchLinks = function(searchString){
-    var links = $('.link');
+  let searchLinks = function(searchString){
+    let links = $('.link');
 
     $.each(links, function(link) {
-      var title = $(this).children('.title').children('.title').val();
-      var url = $(this).children('.url').children('.url').val();
-      var matchingIdeas = findMatches(title, url, searchString);
+      let title = $(this).children('.title').children('.title').val();
+      let url = $(this).children('.url').children('.url').val();
+      let matchingIdeas = findMatches(title, url, searchString);
         $(this).toggle(matchingIdeas);
     });
   };
 
-  var findMatches = function(title, url, searchString) {
+  let findMatches = function(title, url, searchString) {
     return contains(title, searchString) || contains(url, searchString);
   };
 
-  var contains = function(titleOrUrlString, searchString) {
+  let contains = function(titleOrUrlString, searchString) {
     return titleOrUrlString.toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
   };
 });
