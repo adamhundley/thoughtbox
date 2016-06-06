@@ -2,7 +2,7 @@ require 'rails_helper'
 
 Selenium::WebDriver.for :chrome
 
-RSpec.feature "UserUpvotesAnIdea", type: :feature, js: true do
+RSpec.feature "UserSearchesALink", type: :feature, js: true do
   before(:each) do
     @user = User.create(email: "adamhundley@gmail.com", password: "password")
     @user.links << (Link.create(title: "Turing", url: "http://www.turing.io"))

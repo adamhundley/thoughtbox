@@ -39,7 +39,7 @@
     <th>Mark as Read?</th>
     <tbody class="table-striped table-center">
       <% @links.each do |link| %>
-      <tr class='link'>
+      <tr class='link' id="link-<%= link.id %>">
         <%= form_for(link) do |f| %>
           <%= f.label :title, class:"sr-only"  %>
           <td class='title'><%= f.text_field :title, class:"form-control text-input edit title", readonly:true, :data => {:id => link.id }%></td>
