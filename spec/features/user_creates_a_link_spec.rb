@@ -17,8 +17,6 @@ RSpec.feature "UserCreatesLink", type: :feature do
     click_on "submit link"
 
     expect(page).to have_content "New Link Added"
-    expect(page).to have_content "www.turing.io"
-    expect(page).to have_content "New Link Added"
   end
 
   scenario "A non valid link is submitted and an error is recieved" do
