@@ -12,13 +12,12 @@
     <%= f.text_field :url, placeholder: "url", class:"form-control text-input", required:true %><br>
     <%= f.label :title, class:"sr-only"  %>
     <%= f.text_field :title, placeholder: "title", class:"form-control text-input", required:true %><br>
-    <label><%= f.check_box :read, class:"form-control text-input" %>Read?</label><br>
     <%= f.submit "submit link", class:"btn btn-success" %>
   <% end %>
 </div><br><hr>
 <h1>SEARCH</h1>
-<div class="searchIdea container" id="searchIdea">
-    <form class="form-inline searchIdeaForm">
+<div class="searchLink container" id="searchLink">
+    <form class="form-inline searchLinkForm">
       <div class="form-group">
         <input type="text_field" size="80" id="search" placeholder="Search" class="form-control" required>
       </div>
@@ -27,7 +26,7 @@
       </div>
     </form>
   </div><hr>
-<div class="container">
+<div class="container links">
   <h1>My Links</h1>
   <table class="table links-table">
     <th>Title</th>
@@ -35,12 +34,12 @@
     <th>Mark as Read?</th>
     <tbody class="table-striped table-center">
       <% @links.each do |link| %>
-      <tr>
+      <tr class='link'>
         <%= form_for(link) do |f| %>
           <%= f.label :title, class:"sr-only"  %>
-          <td><%= f.text_field :title, class:"form-control text-input edit", readonly:true, :data => {:id => link.id }%></td>
+          <td class='title'><%= f.text_field :title, class:"form-control text-input edit title", readonly:true, :data => {:id => link.id }%></td>
           <%= f.label :url, class:"sr-only"  %>
-          <td><%= f.text_field :url, class:"form-control text-input edit", readonly:true, :data => {:id => link.id } %></td>
+          <td class='url'><%= f.text_field :url, class:"form-control text-input edit url", readonly:true, :data => {:id => link.id } %></td>
 
           <% if link.read %>
             <td><button class="btn btn-success read" data-id="<%= link.id %>" data-read='false'>mark unread</button></td>

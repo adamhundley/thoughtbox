@@ -4,26 +4,25 @@ $(document).ready(function(){
   });
 
   $('#search').on('keyup', function() {
-    searchIdeas($(this).val());
+    searchLinks($(this).val());
   });
 
-  var searchIdeas = function(searchString){
-    var ideas = $('.idea');
+  var searchLinks = function(searchString){
+    var links = $('.link');
 
-    $.each(ideas, function(idea) {
-      var title = $(this).children('.title').children('#title').val();
-      var body = $(this).children('.body').children('#body').val();
-
-      var matchingIdeas = findMatches(title, body, searchString);
+    $.each(links, function(link) {
+      var title = $(this).children('.title').children('.title').val();
+      var url = $(this).children('.url').children('.url').val();
+      var matchingIdeas = findMatches(title, url, searchString);
         $(this).toggle(matchingIdeas);
     });
   };
 
-  var findMatches = function(title, body, searchString) {
-    return contains(title, searchString) || contains(body, searchString);
+  var findMatches = function(title, url, searchString) {
+    return contains(title, searchString) || contains(url, searchString);
   };
 
-  var contains = function(titleOrBodyString, searchString) {
-    return titleOrBodyString.toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
+  var contains = function(titleOrUrlString, searchString) {
+    return titleOrUrlString.toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
   };
 });
