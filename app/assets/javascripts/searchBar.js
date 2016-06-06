@@ -1,4 +1,29 @@
 $(document).ready(function(){
+
+  $('.filterUnread').on('click', function(){
+    var links = $('.link');
+
+    $.each(links, function(link) {
+      if($(this).children('.read').length > 0){
+        $(this).hide();
+      }
+    });
+  })
+
+  $('.filterRead').on('click', function(){
+    var links = $('.link');
+
+    $.each(links, function(link) {
+      if($(this).children('.unread').length > 0){
+        $(this).hide();
+      }
+    });
+  })
+
+  $('.showAll').on('click', function(){
+    $('.link').show();
+  })
+
   $('#clear').on('click', function(){
     $('#searchIdeaForm').trigger('reset');
   });
