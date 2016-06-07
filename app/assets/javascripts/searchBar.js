@@ -2,11 +2,11 @@ $(document).ready(function(){
 
   $('.sort').on('click', function(e){
     var $sort = this;
-    let links = $('.link');
+    var links = $('.link');
 
     links.sort(function(a,b){
-      let keyA = $(a).children('.title').children('.title').val()
-      let keyB = $(b).children('.title').children('.title').val()
+      var keyA = $(a).children('.title').children('.title').val()
+      var keyB = $(b).children('.title').children('.title').val()
 
 
       if($($sort).hasClass('asc')){
@@ -24,7 +24,7 @@ $(document).ready(function(){
   });
 
   $('.filterUnread').on('click', function(){
-    let links = $('.link');
+    var links = $('.link');
 
     $.each(links, function(link) {
       if($(this).children('.read').length > 0){
@@ -34,7 +34,7 @@ $(document).ready(function(){
   })
 
   $('.filterRead').on('click', function(){
-    let links = $('.link');
+    var links = $('.link');
 
     $.each(links, function(link) {
       if($(this).children('.unread').length > 0){
@@ -55,22 +55,22 @@ $(document).ready(function(){
     searchLinks($(this).val());
   });
 
-  let searchLinks = function(searchString){
-    let links = $('.link');
+  var searchLinks = function(searchString){
+    var links = $('.link');
 
     $.each(links, function(link) {
-      let title = $(this).children('.title').children('.title').val();
-      let url = $(this).children('.url').children('.url').val();
-      let matchingIdeas = findMatches(title, url, searchString);
+      var title = $(this).children('.title').children('.title').val();
+      var url = $(this).children('.url').children('.url').val();
+      var matchingIdeas = findMatches(title, url, searchString);
         $(this).toggle(matchingIdeas);
     });
   };
 
-  let findMatches = function(title, url, searchString) {
+  var findMatches = function(title, url, searchString) {
     return contains(title, searchString) || contains(url, searchString);
   };
 
-  let contains = function(titleOrUrlString, searchString) {
+  var contains = function(titleOrUrlString, searchString) {
     return titleOrUrlString.toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
   };
 });
