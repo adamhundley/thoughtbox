@@ -23,11 +23,6 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $('.sortZ').on('click', function(){
-    let links = $('.link');
-
-  });
-
   $('.filterUnread').on('click', function(){
     let links = $('.link');
 
