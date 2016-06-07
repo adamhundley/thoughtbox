@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'codeclimate-test-reporter', group: :test, require: nil
 gem 'validate_url'
+gem 'sprockets'
 
 group :development, :test do
   gem 'pry-rails'
